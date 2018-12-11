@@ -11,5 +11,6 @@
     --sourceDirs src/main/java,src/test/java
     
 # Ref:
+- http://pitest.org/quickstart/maven/
 - https://www.infoq.com/presentations/kill-better-test 
 - https://xebia.com/blog/mutation-testing-how-good-are-your-unit-tests
