@@ -31,31 +31,55 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.1</version>
                 <configuration>
+                    <systemPropertyVariables>
+                        <jacoco-agent.destfile>${jacoco.ut.execution.data.file}</jacoco-agent.destfile>
+                    </systemPropertyVariables>
+                    <testSourceDirectory>src/test/groovy</testSourceDirectory>
                     <testSourceDirectory>src/test/java</testSourceDirectory>
+                    <includes>
+                        <include>**/*Spec.java</include>
+                        <include>**/*Test.java</include>
+                    </includes>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.7.201606060606</version>
+                <version>${jacoco.version}</version>
                 <configuration>
-                    <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
-                    <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
+                    <excludes>
+                        <exclude>JAVAC.SYNTHCLASS</exclude>
+                        <exclude>JAVAC.SYNTHMETH</exclude>
+                        <exclude>JAVAC.FINALLY</exclude>
+                        <exclude>JAVAC.STRINGSWITCH</exclude>
+                        <exclude>JAVAC.ASSERT</exclude>
+                    </excludes>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>jacoco-initialize</id>
+                        <id>jacoco-default-instrument</id>
                         <goals>
-                            <goal>prepare-agent</goal>
+                            <goal>instrument</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <id>jacoco-site</id>
+                        <id>jacoco-default-restore-instrumented-classes</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>restore-instrumented-classes</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>coverage-report</id>
                         <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <dataFile>${jacoco.ut.execution.data.file}</dataFile>
+                            <outputDirectory>${jacoco.ut.coverage.report}</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -87,6 +111,15 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.jacoco</groupId>
+            <artifactId>org.jacoco.agent</artifactId>
+            <version>${jacoco.version}</version>
+            <classifier>runtime</classifier>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

@@ -26,5 +26,4 @@ public class PriceCalculatorTest {
     public void testDiscountedPricingWithCoupon() {
         Assert.assertEquals(300, priceCalculator.getPrice(20, true));   //problem should be false
     }
-
 }
