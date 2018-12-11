@@ -98,6 +98,12 @@
                     <targetTests>
                         <param>com.pit.example.*</param>
                     </targetTests>
+                    <avoidCallsTo>
+                        <avoidCallsTo>java.util.logging</avoidCallsTo>
+                        <avoidCallsTo>org.apache.log4j</avoidCallsTo>
+                        <avoidCallsTo>org.slf4j</avoidCallsTo>
+                        <avoidCallsTo>org.apache.commons.logging</avoidCallsTo>
+                    </avoidCallsTo>
                 </configuration>
             </plugin>
         </plugins>
