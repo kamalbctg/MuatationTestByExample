@@ -11,6 +11,7 @@
     <properties>
         <jacoco.ut.execution.data.file>${project.build.directory}/site/coverage-report/jacoco-ut.exec</jacoco.ut.execution.data.file>
         <jacoco.ut.coverage.report>${project.build.directory}/site/coverage-report</jacoco.ut.coverage.report>
+        <pit.report>${project.build.directory}/site/mutation-report</pit.report>
         <jacoco.version>0.8.2</jacoco.version>
     </properties>
 
@@ -89,6 +90,9 @@
                 <artifactId>pitest-maven</artifactId>
                 <version>1.4.2</version>
                 <configuration>
+                    <reportsDirectory>
+                        ${pit.report}
+                    </reportsDirectory>
                     <threads>3</threads>
                     <timestampedReports>false</timestampedReports>
                     <outputFormats>xml,html</outputFormats>
